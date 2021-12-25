@@ -1,7 +1,7 @@
 const app = require("express")();
 const socket = require("socket.io");
 const cors = require("cors");
-const { users, joinUser } = require("./users");
+const { users, joinUser, disconnectUser } = require("./users");
 const port = 8000;
 
 app.use(cors());
@@ -34,5 +34,17 @@ io.on("connection", (socket) => {
 			username: currUser.username,
 			text: message,
 		});
+		console.log("This is ont receiving 'chat and sending again'");
+	});
+
+	socket.on("disconnect", () => {
+		const delUser = disconnectUser(socket.id);
+		if (delUser) {
+			io.to(delUser.room).emit("message", {
+				userId: delUser.id,
+				username: delUser.username,
+				text: `${delUser.username} has left the room`,
+			});
+		}
 	});
 });
