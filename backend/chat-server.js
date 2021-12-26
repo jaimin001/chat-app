@@ -9,19 +9,23 @@ app.use(cors());
 var server = app.listen(port);
 const io = socket(server);
 
+function get_Current_User(id) {
+	return;
+}
+
 io.on("connection", (socket) => {
 	socket.on("joinRoom", ({ username, roomName }) => {
-		const currUser = joinUser(socket.id, username, roomName);
+		joinUser(socket.id, username, roomName);
+		const currUser = users[users.length - 1];
 		socket.join(currUser.room);
-
 		socket.emit("message", {
-			userId: currUser.id,
+			id: currUser.id,
 			username: currUser.username,
 			text: `Welcome ${currUser.username}`,
 		});
 
 		socket.broadcast.to(currUser.room).emit("message", {
-			userId: currUser.id,
+			id: currUser.id,
 			username: currUser.username,
 			text: `${currUser.username} has joined the chat`,
 		});
@@ -30,18 +34,17 @@ io.on("connection", (socket) => {
 	socket.on("chat", (message) => {
 		const sender = users.find((user) => user.id === socket.id);
 		io.to(sender.room).emit("message", {
-			userId: currUser.id,
-			username: currUser.username,
+			id: sender.id,
+			username: sender.username,
 			text: message,
 		});
-		console.log("This is ont receiving 'chat and sending again'");
 	});
 
 	socket.on("disconnect", () => {
 		const delUser = disconnectUser(socket.id);
 		if (delUser) {
 			io.to(delUser.room).emit("message", {
-				userId: delUser.id,
+				id: delUser.id,
 				username: delUser.username,
 				text: `${delUser.username} has left the room`,
 			});

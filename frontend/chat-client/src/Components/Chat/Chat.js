@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Chat({ username, roomname, socket }) {
+function Chat({ username, room, socket }) {
 	const [text, setText] = useState("");
 	const [messages, setMessages] = useState([]);
 
@@ -27,7 +27,7 @@ function Chat({ username, roomname, socket }) {
 		<div className="chatView">
 			<div className="user-name">
 				<h1>{username}</h1>
-				<h2>{roomname}</h2>
+				<h2>{room}</h2>
 			</div>
 			<div className="chat-message">
 				{messages.map((i) => {

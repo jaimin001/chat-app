@@ -3,16 +3,15 @@ import { Link } from "react-router-dom";
 
 export default function Home({ socket }) {
 	const [username, setusername] = useState("");
-	const [roomname, setroomname] = useState("");
+	const [roomName, setroomName] = useState("");
 
 	const sendMessage = () => {
-		if (username !== "" && roomname !== "") {
-			console.log({ username, roomname });
-			socket.emit("joinRoom", { username, roomname });
+		if (username !== "" && roomName !== "") {
+			socket.emit("joinRoom", { username, roomName });
 		} else {
 			alert("Please fill Proper details");
 			setusername("");
-			setroomname("");
+			setroomName("");
 		}
 	};
 
@@ -26,10 +25,10 @@ export default function Home({ socket }) {
 			></input>
 			<input
 				placeholder="Input the room name"
-				value={roomname}
-				onChange={(e) => setroomname(e.target.value)}
+				value={roomName}
+				onChange={(e) => setroomName(e.target.value)}
 			></input>
-			<Link to={`/chat/${roomname}/${username}`}>
+			<Link to={`/chat/${roomName}/${username}`}>
 				<button onClick={sendMessage}>Join</button>
 			</Link>
 		</div>

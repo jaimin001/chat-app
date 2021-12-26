@@ -4,8 +4,8 @@ import Home from "./Components/Home/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import io from "socket.io-client";
 
-const socket = io.connect("/");
 function App(props) {
+	const socket = io.connect("/");
 	return (
 		<>
 			<Router>
