@@ -1,0 +1,29 @@
+.chatView {
+	margin: 0px 100px;
+	background-color: rgba(0, 0, 0, 0.8);
+	height: 100vh;
+	position: relative;
+}
+
+.user-name {
+	display: flex;
+}
+
+.user-name h1 {
+	flex: 1;
+}
+
+.send-message {
+	position: absolute;
+	top: 90%;
+	display: flex;
+	flex: 9;
+}
+
+#send-message-text {
+	width: 70vw;
+}
+
+.send-button {
+	flex: 1;
+}

@@ -16,6 +16,7 @@ function get_Current_User(id) {
 io.on("connection", (socket) => {
 	socket.on("joinRoom", ({ username, roomName }) => {
 		joinUser(socket.id, username, roomName);
+		console.log(users);
 		const currUser = users[users.length - 1];
 		socket.join(currUser.room);
 		socket.emit("message", {

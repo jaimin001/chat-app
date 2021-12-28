@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import "./Chat.css";
 
-function Chat({ username, room, socket }) {
+function Chat({ username, roomname, socket }) {
 	const [text, setText] = useState("");
 	const [messages, setMessages] = useState([]);
 
@@ -26,21 +27,21 @@ function Chat({ username, room, socket }) {
 	return (
 		<div className="chatView">
 			<div className="user-name">
-				<h1>{username}</h1>
-				<h2>{room}</h2>
+				<h1>Name: {username}</h1>
+				<h1>Room: {roomname}</h1>
 			</div>
 			<div className="chat-message">
-				{messages.map((i) => {
+				{messages.map((i, index) => {
 					if (i.username === username) {
 						return (
-							<div className="message as-sender">
+							<div className="message as-sender" key={index}>
 								<p>{i.text}</p>
 								<span>{i.username}</span>
 							</div>
 						);
 					} else {
 						return (
-							<div className="message as-receiver">
+							<div className="message as-receiver" key={index}>
 								<p>{i.text} </p>
 								<span>{i.username}</span>
 							</div>
@@ -61,7 +62,9 @@ function Chat({ username, room, socket }) {
 						}
 					}}
 				/>
-				<button onClick={sendMessage}>Send</button>
+				<button className="send-button" onClick={sendMessage}>
+					Send
+				</button>
 			</div>
 		</div>
 	);
